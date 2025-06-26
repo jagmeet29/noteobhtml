@@ -1,0 +1,77 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  a:hover{
+    color : blue;
+    padding: 0px;
+    background-color: transparent;
+  }
+</style>
+<div id="container">
+  <h1>Important Laws of Boolean Algebra</h1>
+<div class="res-container">
+  <table>
+    <tr>
+      <th>Law</th>
+      <th>Expression</th>
+      <th>Explanation</th>
+    </tr>
+    <tr>
+      <td><strong>Identity Law</strong></td>
+      <td>$A + 0 = A$, $A \cdot 1 = A$</td>
+      <td>Adding 0 or multiplying by 1 doesn't change the value of A.</td>
+    </tr>
+    <tr>
+      <td><strong>Null Law</strong></td>
+      <td>$A + 1 = 1$, $A \cdot 0 = 0$</td>
+      <td>Adding 1 always results in 1; multiplying by 0 always results in 0.</td>
+    </tr>
+    <tr>
+      <td><strong>Idempotent Law</strong></td>
+      <td>$A + A = A$, $A \cdot A = A$</td>
+      <td>Repeating the same operation doesn't change the result.</td>
+    </tr>
+    <tr>
+      <td><strong>Complement Law</strong></td>
+      <td>$A + \overline{A} = 1$, $A \cdot \overline{A} = 0$</td>
+      <td>A variable ORed with its complement is 1, and ANDed with its complement is 0.</td>
+    </tr>
+    <tr>
+      <td><strong>Double Negation</strong></td>
+      <td>$\overline{\overline{A}} = A$</td>
+      <td>Negating twice gives back the original value.</td>
+    </tr>
+    <tr>
+      <td><strong>Commutative Law</strong></td>
+      <td>$A + B = B + A$, $A \cdot B = B \cdot A$</td>
+      <td>Order of variables doesn’t matter in AND or OR operations.</td>
+    </tr>
+    <tr>
+      <td><strong>Associative Law</strong></td>
+      <td>$(A + B) + C = A + (B + C)$, $(A \cdot B) \cdot C = A \cdot (B \cdot C)$</td>
+      <td>Grouping doesn’t affect the result.</td>
+    </tr>
+    <tr>
+      <td><strong>Distributive Law</strong></td>
+      <td>$A \cdot (B + C) = A \cdot B + A \cdot C$</td>
+      <td>AND distributes over OR.</td>
+    </tr>
+    <tr>
+      <td><strong><a href="AlgebraAbsorptionLaw.html" class="anoblue">Absorption Law </a></td>
+      <td>$A + (A \cdot B) = A$, $A \cdot (A + B) = A$</td>
+      <td>A term absorbs a combination of itself with another term.</td>
+    </tr>
+    <tr>
+      <td><strong><a href="Demorgan.html" class="anoblue">De Morgan’s Theorems</a></strong></td>
+      <td>$(A + B)' = \overline{A} \cdot \overline{B}$, $(A \cdot B)' = \overline{A} + \overline{B}$</td>
+      <td>Complement of an OR is the AND of complements, and vice versa.</td>
+    </tr>
+    <tr>
+      <td><strong><a href="ConsensusTheorem.html" class="anoblue">Consensus Theorem</a></strong></td>
+      <td>$A \cdot B + \overline{A} \cdot C + B \cdot C = A \cdot B + \overline{A} \cdot C$</td>
+      <td>Eliminates redundant terms in expressions.</td>
+    </tr>
+  </table>
+  </div>
+</div>

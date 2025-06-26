@@ -1,0 +1,74 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>7-Segment Display in Digital Electronics</h1>
+
+  <blockquote>
+    A 7-segment display is an electronic display device widely used in digital
+    electronics to show decimal numerals (0–9) and some basic characters. It
+    consists of seven LED segments arranged in the pattern of the number "8"
+    with each segment labeled from "a" to "g".
+  </blockquote>
+
+  <dev class="res-container">
+    <img src="7.jpg" width="700px" />
+  </dev>
+  <h2>Structure and Design</h2>
+  <p>The seven-segment display consists of:</p>
+  <ul>
+    <li>Seven LED segments arranged in a figure-8 pattern</li>
+    <li>
+      Each segment is typically a rectangular LED designated by letters a–g
+    </li>
+    <li>Often includes an additional segment "dp" (decimal point)</li>
+    <li>
+      Segments are made from light-scattering material (often milky in color) to
+      ensure uniform illumination
+    </li>
+  </ul>
+
+  <p>The segments are positioned as:</p>
+  <ul>
+    <li>Three horizontal segments (top, middle, bottom)</li>
+    <li>Four vertical segments forming the sides</li>
+  </ul>
+
+  <h2>Working Principle</h2>
+  <p>
+    The display works by selectively illuminating combinations of the seven
+    segments to represent different characters:
+  </p>
+  <ul>
+    <li>"0": a, b, c, d, e, f</li>
+    <li>"1": b, c</li>
+    <li>"2": a, b, g, e, d</li>
+    <li>"3": a, b, g, c, d</li>
+    <li>"4": f, g, b, c</li>
+    <li>"5": a, f, g, c, d</li>
+    <li>"6": a, f, g, e, c, d</li>
+    <li>"7": a, b, c</li>
+    <li>"8": a, b, c, d, e, f, g</li>
+    <li>"9": a, b, c, d, f, g</li>
+  </ul>
+
+  <h2>Types of 7-Segment Displays</h2>
+
+  <h3>Based on Connection Configuration:</h3>
+  <ol>
+    <li>
+      <strong>Common Cathode (CC):</strong>
+      <ul>
+        <li>All cathodes are connected to ground (logic 0)</li>
+        <li>Segments activate with a HIGH (logic 1) signal</li>
+      </ul>
+    </li>
+    <li>
+      <strong>Common Anode (CA):</strong>
+      <ul>
+        <li>All anodes are connected to power supply (logic 1)</li>
+        <li>Segments activate with a LOW (logic 0) signal</li>
+      </ul>
+    </li>
+  </ol>
+</div>

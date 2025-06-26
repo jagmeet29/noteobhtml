@@ -1,0 +1,210 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+    <h1>Counter Implementations in Verilog - Behavioral Code</h1>
+
+    <p>Counters are sequential circuits that proceed through a predetermined sequence of states. Here are behavioral implementations of various counter types in Verilog.</p>
+  
+    <h2>Binary Up Counter</h2>
+    <pre><code class="language-verilog">module binary_up_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b0}};
+          else if (enable)
+              count <= count + 1'b1;
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Used in digital clocks, timers, and event counters where counting from 0 upward is required.</div>
+  
+    <h2>Binary Down Counter</h2>
+    <pre><code class="language-verilog">module binary_down_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b1}};
+          else if (enable)
+              count <= count - 1'b1;
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Used in countdown timers, delay circuits, and reverse sequencing operations.</div>
+  
+    <h2>Up/Down Counter</h2>
+    <pre><code class="language-verilog">module up_down_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      input wire up_down,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b0}};
+          else if (enable) begin
+              if (up_down)
+                  count <= count + 1'b1;
+              else
+                  count <= count - 1'b1;
+          end
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Ideal for elevator controls and digital volume knobs where both increment and decrement operations are needed.</div>
+  
+    <h2>Ring Counter</h2>
+    <pre><code class="language-verilog">module ring_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {{WIDTH-1{1'b0}}, 1'b1};
+          else if (enable)
+              count <= {count[WIDTH-2:0], count[WIDTH-1]};
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Commonly used in LED chasers, rotating light displays, and finite state machines.</div>
+  
+    <h2>Johnson Counter</h2>
+    <pre><code class="language-verilog">module johnson_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b0}};
+          else if (enable)
+              count <= {count[WIDTH-2:0], ~count[WIDTH-1]};
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Used in sequence generators and stepper motor control circuits due to their predictable patterns.</div>
+  
+    <h2>Decade Counter</h2>
+    <pre><code class="language-verilog">module decade_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b0}};
+          else if (enable) begin
+              if (count == 4'd9)
+                  count <= {WIDTH{1'b0}};
+              else
+                  count <= count + 1'b1;
+          end
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Essential in digital systems based on the decimal system like BCD displays and digital counters.</div>
+  
+    <h2>Mod-N Counter</h2>
+    <pre><code class="language-verilog">module mod_n_counter #(parameter WIDTH = 4, parameter N = 10)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {WIDTH{1'b0}};
+          else if (enable) begin
+              if (count == N-1)
+                  count <= {WIDTH{1'b0}};
+              else
+                  count <= count + 1'b1;
+          end
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Used in pulse generation, frequency division, and custom state machines where N-state operation is required.</div>
+  
+    <h2>Gray Code Counter</h2>
+    <pre><code class="language-verilog">module gray_code_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] gray_out
+  );
+      reg [WIDTH-1:0] binary_count;
+      always @(posedge clk or posedge reset) begin
+          if (reset) begin
+              binary_count <= {WIDTH{1'b0}};
+              gray_out <= {WIDTH{1'b0}};
+          end else if (enable) begin
+              binary_count <= binary_count + 1'b1;
+              gray_out <= binary_count ^ (binary_count >> 1);
+          end
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Ideal for position encoders and ADCs due to minimal bit transitions between states.</div>
+  
+    <h2>LFSR Counter</h2>
+    <pre><code class="language-verilog">module lfsr_counter #(parameter WIDTH = 4)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      output reg [WIDTH-1:0] count
+  );
+      wire feedback;
+      assign feedback = count[3] ^ count[2];
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= {{WIDTH-1{1'b0}}, 1'b1};
+          else if (enable)
+              count <= {feedback, count[WIDTH-1:1]};
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Widely used in random number generation, cryptography, and built-in self-test (BIST) logic.</div>
+  
+    <h2>Auto-Reload Counter</h2>
+    <pre><code class="language-verilog">module auto_reload_counter #(parameter WIDTH = 8)(
+      input wire clk,
+      input wire reset,
+      input wire enable,
+      input wire [WIDTH-1:0] load_value,
+      input wire [WIDTH-1:0] top_value,
+      output reg [WIDTH-1:0] count
+  );
+      always @(posedge clk or posedge reset) begin
+          if (reset)
+              count <= load_value;
+          else if (enable) begin
+              if (count >= top_value)
+                  count <= load_value;
+              else
+                  count <= count + 1'b1;
+          end
+      end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Perfect for programmable timers, PWM signal generation, and frequency control systems.</div>
+  
+    <h2>D Flip-Flop</h2>
+    <pre><code class="language-verilog">module d_flip_flop (
+    input wire clk,      // Clock input
+    input wire reset,    // Active high reset
+    input wire d,        // Data input
+    output reg q         // Output
+  );
+    // Trigger on positive edge of clock or reset
+    always @(posedge clk or posedge reset) begin
+        if (reset)
+            q <= 1'b0;   // Reset output to 0
+        else
+            q <= d;      // Capture D on clock edge
+    end
+  endmodule</code></pre>
+    <div class="use-case"><strong>Use Case:</strong> Fundamental building block in memory elements, shift registers, and data synchronization circuits.</div>
+  

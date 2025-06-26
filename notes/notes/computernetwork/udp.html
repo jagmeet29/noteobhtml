@@ -1,0 +1,78 @@
+
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="css.css" />
+<div id="container">
+    <h1>UDP (User Datagram Protocol)</h1>
+    <blockquote>UDP is a connectionless, unreliable protocol that has no flow and error control. It uses port numbers to multiplex data from the application layer.
+    </blockquote>
+    <ul>
+        <li>UDP is a simple, connectionless and unreliable transport-layer protocol.</li>
+        <li>
+            It does not add anything to the services of IP except for providing process-to-process communication. </li>
+            <li>
+            UDP performs a very limited error checking.</li>
+            <li>
+                UDP packets are called <em>Datagrams</em> and have fixed size header of 8 Bytes.
+            </li>
+            <li>In UDP a process (an application program) sends a chunk of bytes to UDP for delivery.</li><li>
+                UDP adds its own header to this chunk of data, which is then called a user datagram, and delivers it to IP for transmission.</li><li>
+                The process may deliver several chunks of data to UDP, but UDP treats each chunk independently without seeing any connection between them.
+                </li>
+            <li>It is not usually used for process that needs to send bulk data, such as FTP.
+            </li>
+            <li>The trivial File Transport Protocol (TFTP) includes flow and error control.
+            </li>
+            <li>Multicasting capabilities are embedded in the UDP software but not in TCP software.</li><li>UDP is used for some route update protocols such as Routing Information Protocol (RIP).</li><li>
+                UDP is used in conjunction with Real Time Transport Protocol (RTP) to provide a transport-layer mechanism for real-time data.
+                </li>
+    </ul>
+    <div class="res-ques"><h4>   If the UDP is so powerless why would a process wants to use it?</h4>
+        <button class="ans-button">Show Answer</button>
+        <div class="ans-content">
+            If the UDP is so powerless why would a process wants to use it?
+            
+            UDP is a very simple protocol with a minimum of overhead.
+            If a process wants to send a small message and does not care much about reliability, it can use UDP.
+            It takes much less interaction between sender and receiver.
+            UDP is also a convenient protocol for multimedia and multicasting applications.
+            
+            UDP uses port numbers are the addressing mechanism in the transport layer.
+        </div>
+    </div><h6 >TFTP</h6>
+    <p> TFTP, or Trivial File Transfer Protocol, is a simple high-level protocol for transferring data servers use to boot diskless workstations, X-terminals, and routers by using User Data Protocol (UDP).
+    </p>
+    <h6>RTP</h6>
+    <p>The Real-time Transport Protocol is a network protocol used to deliver streaming audio and video media over the internet, thereby enabling the Voice Over Internet Protocol (VoIP).
+    </p>
+    <h2>Datagrams</h2>
+    <div class="res-container"><img src="10.png" width="500px"></div>
+    
+<br> <ul>
+    <li>
+        <b>Source Port Number:</b><br>
+        16-bit long field containing the port number used by the process running on the source. (value can be from 0 to 65,535).
+    </li>
+    <li>
+        <b>Destination Port Number:</b><br>
+        16-bits field containing the port number of the process running on the destination.
+    </li>
+    <li>
+        <b>Length:</b><br>
+        16-bit field defines the total length of the user datagram (Header + Data).
+    </li>
+    <li>
+        <b>Checksum:</b><br>
+        Used to detect errors (checksum) over entire datagram. (Header + Data).<br>
+        Although UDP checksum should be based on the UDP header and payload (data coming from the application layer), but the designers have also added a part of IP header (only those fields not changing by the routers).<br>
+        This ensures that those fields have not been changed from source to destination.<br>
+        The calculation of the checksum and its inclusion in a user datagram is optional.<br>
+        If the checksum is not calculated this field is filled with 0s.
+    </li>
+</ul>
+<h2>Well Known Ports For UDP</h2>
+<div class="res-container">
+    <img src="9.png">
+</div>

@@ -1,0 +1,100 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+    <h1>7 Segment Display Decoder</h1>
+    <h2>Design Code For Counter</h2>
+    <pre><code class="language-verilog">
+        module counter_3bit_sevenseg(count,clk,rst);
+        input clk,rst;
+        output reg [2:0]count;
+        integer i;
+        always@(posedge clk, posedge rst)
+        begin
+        if(rst)
+        count<=0;
+        else 
+        for(i=0;i<7;i=i+1)
+        count<=count+1;
+        end         
+    </code></pre>
+    <h2>Counter Test Bench</h2>
+    <pre><code class="language-verilog">
+        //counter test stimulus
+        module counter_3bit_sevenseg_tb;
+        reg clk,rst;
+        wire [2:0] count;
+        counter_3bit_sevenseg uut(count,clk,rst);
+        initial begin
+        clk = 0;
+        forever #5clk=~clk;
+        end
+        initial begin
+        rst=1;
+        #10 rst=0;
+        #1000000000 $stop;
+        end
+        endmodule            
+    </code></pre>
+    <h2>Design Code For 7 Segment Decoder</h2>
+    <pre><code class="language-verilog">
+        module segment7(bcd, seg );
+        //Declare inputs, outputs and internal variables.
+            input [3:0] bcd;
+            output [6:0] seg;
+            reg [6:0] seg;
+       //always block for converting bcd digit into 7 segment format
+           always @(bcd)
+           begin
+       case (bcd) //case statement
+       0 : seg = 7'b1000000;
+       1 : seg = 7'b1111001;   
+       2 : seg = 7'b0100100;
+       3 : seg = 7'b0110000;
+       4 : seg = 7'b0011001;
+       5 : seg = 7'b0010010;
+       6 : seg = 7'b0000010;
+       7 : seg = 7'b1111000;
+       8 : seg = 7'b0000000;
+       9 : seg = 7'b0010000;
+       //switch off 7 segment character when the bcd digit is not a decimal number.
+                   default : seg = 7'b1111111; 
+               endcase
+           end endmodule    
+    </code></pre>
+    <h2>Clock Divider Code</h2>
+    <pre><code class="language-verilog">
+        module clockdivide(clk, nclk);
+        input clk;
+        output reg nclk;
+        reg [31:0]count=32'd0;
+        always@(posedge clk)
+        begin
+        count=count+1;
+        nclk=count[25];
+        end
+        endmodule         
+    </code></pre>
+    <h2>Main Code</h2>
+    <pre><code class="language-verilog">
+        module main_counter_3bit_sevenseg(seg,rst,clk);
+        input rst, clk;
+        output [6:0]seg;
+        wire [2:0]count;
+        wire nclk;
+        wire [3:0]bcd;
+        assign bcd={1'b0,count};
+        counter_3bit_sevenseg u1(count,nclk,rst);
+        clockdivide u2(clk, nclk);
+        segment7 u3(bcd,seg);
+        Endmodule           
+    </code></pre>
+    <h2>Top Module</h2>
+    <pre><code class="language-verilog">
+        module sevensegment_top(an,clk,rst,seg);
+        input rst,clk;
+        output [6:0]seg;
+        output reg [7:0]an=8'b11111110;
+        main_counter_3bit_sevenseg uut(seg,rst,clk);
+        endmodule        
+    </code></pre>

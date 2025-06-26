@@ -1,0 +1,265 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>FSM</h1>
+  
+  <h2>Designing $101$  </h2>
+  <h3>How to represent the states ?</h3>
+  <ul>
+  <h4>For Moore</h4>
+  <ol>
+    <li>Make a circle.</li>
+    <li>Divide the circle horizontally.</li>
+    <li>Write the state name in the upper half.</li>
+    <li>Write the output in the lower half.</li>
+    <li>The input is write above the transition arrows.</li>
+    <li>Below the circle write the bit sequence covered by state.</li>
+  </ol>
+
+  <p>Example: For $S_0$</p>
+  <ul>
+    <li>The state is $S_0$ write in upper half.</li>
+    <li>The output is $0$ write in lower half.</li>
+    <li>Bellow the circle $(x)$ initial state.</li>
+  </ul>
+
+  </ul>
+
+  <ul>
+    <h4>For Mealy</h4>
+    <ol>
+      <li>Make a circle.</li>
+      <li>Write the state name in the circle.</li>
+      <li>The input and output are write above the transition arrows.</li>
+      <li>On the right side of slash output and input on left.</li>
+      <li>Below the circle write the bit sequence covered by state.</li>
+    </ol>
+  
+    <p>Example: For $S_0$</p>
+    <ul>
+      <li>The state is $S_0$ write in circle.</li>
+      <li>Bellow the circle $(x)$ initial state.</li>
+    </ul>
+  
+    </ul>
+  <h3>How to draw the arrow for next state ?</h3>
+  <ol>
+    <li>Write the present state.</li>
+    <li>Next state can be present state + $0$ or $1$.</li>
+    <li>For each possibility find the next state.</li>
+
+    <li>
+      If the next state value is present in some other state then connect the
+      arrow to that state.
+    </li>
+    <li>If not then iteratively removed bits from left hand side till you find state. </li>
+  </ol>
+
+  <p>Example: For $S_0$</p>
+  <ul>
+    <li>Present state is $0$.</li>
+    <li>The next states are $01$ and $00$.</li>
+    <li>For $01$ the next state is $S_1$.</li>
+    <li>For $00$ the next state is $S_0$.</li>
+  </ul>
+
+  
+  <p>Example: For $S_3$ (overlapping moore)</p>
+  <ul>
+    <li>Present state is $101$.</li>
+    <li>The next states are $1011$ and $1010$.</li>
+    <li>For both the next state is ?</li>
+    <ol>
+        <li>Find There is $1010$ somewhere and connect.</li>
+        <li>No, Then remove one bit from the left $010$. Now find if there any matching state.</li>
+        <li>No, Again repeat it till we get $10$ which is available at $S_2$.</li>
+        <li>similarly for $1011$ to $S_1$</li>
+    </ol>
+  </ul>
+  <h3>How to write the last state for overlap
+ping and non overlapping ?</h3>
+    <ol>
+        <li>For overlapping we can use the previous sate bits.</li>
+        <li>For non overlapping we can't use the previous sate bits, we only use the input.</li></ol>
+  </h3>
+  <p style="color: rebeccapurple;"><b>Note:</b> $S0$ is the initial state and doesnot represent sequence's fist bit.</p>
+  <h1>Moore Code and State Diagram</h1>
+  <div class="res-container"> 
+    <center>
+      <img src="4.png"  width="600px"/>
+      <center>
+        Overlapping (1) and Non Overlapping (2)
+      </center>
+    </center>
+  </div>
+  <h2>Code for Non Overlapping Moore</h2>
+  <pre><code class="language-verilog">
+module Moore(x,clk,out);
+input x,clk;
+output reg out=0;
+reg [1:0]state=2'b00;
+always @(posedge clk)
+    case(state)
+        2'b00:begin
+        if(x==1)
+            begin
+                state=2'b01;
+            end
+        out=0;
+        end
+        2'b01:begin
+        if(x==0)
+            begin
+                state=2'b10;
+            end
+        out=0;
+        end
+        2'b10:begin
+        if(x==1)
+            begin
+                state=2'b11;
+            end
+        out=0;
+        end
+        2'b11:begin
+        if(x==1)
+            begin
+                state=2'b01;
+            end
+        else if(x==0)
+            begin
+                state=2'b00;
+            end
+        out=0;
+        end
+    endcase
+endmodule
+  </code></pre>
+  <h2>Code for Overlapping Moore</h2>
+  <pre><code class="language-verilog">
+module Moore(x,clk,out);
+input x,clk;
+output reg out=0;
+reg [1:0]state=2'b00;
+always @(posedge clk)
+    case(state)
+        2'b00:begin
+        if(x==1)
+            begin
+                state=2'b01;
+            end
+        out=0;
+        end
+        2'b01:begin
+        if(x==0)
+            begin
+                state=2'b10;
+            end
+        out=0;
+        end
+        2'b10:begin
+        if(x==1)
+            begin
+                state=2'b11;
+            end
+        out=0;
+        end
+        2'b11:begin
+        if(x==1)
+            begin
+                state=2'b01;
+            end
+        else if(x==0)
+            begin
+                state=2'b10;
+            end
+        out=0;
+        end
+    endcase
+endmodule
+  </code></pre>
+
+  <h1>Mealy Code and State Diagram</h1>
+  <div class="res-container">
+  <center>
+    <img src="5.jpg"  width="600px"/>
+    <center>
+      Overlapping (1) and Non Overlapping (2)
+    </center>
+  </center></div>
+  <h2>Code for Non Overlapping Moore</h2>
+  <pre><code class="language-verilog">
+module mealy(x,clk,out);
+input x,clk;
+output reg out=0;
+reg [1:0]state=2'b00;
+always @(posedge clk)
+    case(state)
+        2'b00:begin
+        if(x==1)
+            begin
+            state=2'b01;
+            end
+            out=0;
+        end
+        2'b01:begin
+        if(x==0)
+            begin
+            state=2'b10;
+            end
+            out=0;
+        end
+        2'b10:begin
+        if(x==1)
+            begin
+            state=2'b01;
+            out=1;
+            end
+        else
+            begin
+            state=2'b00;
+            end
+            out=0;
+        end
+    endcase
+endmodule
+  </code></pre>
+  <h2>Code for  Overlapping Moore</h2>
+  <pre><code class="language-verilog">
+module mealy(x,clk,out);
+input x,clk;
+output reg out=0;
+reg [1:0]state=2'b00;
+always @(posedge clk)
+    case(state)
+        2'b00:begin
+        if(x==1)
+            begin
+            state=2'b01;
+            end
+            out=0;
+        end
+        2'b01:begin
+        if(x==0)
+            begin
+            state=2'b10;
+            end
+            out=0;
+        end
+        2'b10:begin
+        if(x==1)
+            begin
+              state=2'b01;
+              out=1;
+            end
+            else
+            begin
+              state=2'b00;
+            end
+            out=0;
+        end 
+    endcase
+endmodule
+  </code></pre>
+</div>

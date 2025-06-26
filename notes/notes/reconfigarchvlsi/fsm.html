@@ -1,0 +1,93 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>Mealy and Moore Finite State Machines</h1>
+
+  <h2>Mealy Machine</h2>
+  <blockquote>
+    A Mealy machine is a finite-state machine where the output depends on both
+    the current state and the current input.
+  </blockquote>
+
+  <h2>Moore Machine</h2>
+  <blockquote>
+    A Moore machine is a finite-state machine where the output values depend
+    solely on the current state, regardless of the input.
+  </blockquote>
+
+  <h1>Sequence Detectors</h1>
+  <h3>Overlapping Sequence Detectors</h3>
+  <blockquote>
+    In an overlapping sequence detector, the final bits of one detected sequence
+    can serve as the beginning bits of the next sequence. After detecting a pattern, the machine keeps the last bits that might be the start of a new pattern
+  </blockquote>
+  <ul>
+    <li>For a 101 sequence detector with input $0110101011001$.</li>
+    <li>The output is $0100100010000$.</li>
+    <li>
+      After detecting $101$, the last bit (1) can be the first bit of the next
+      $101$ pattern
+    </li>
+  </ul>
+  <h3>Non-Overlapping Sequence Detectors</h3>
+  <blockquote>
+    In a non-overlapping sequence detector, after a sequence is detected, the
+    machine starts searching for a new sequence from scratch. After detecting a pattern, the machine returns to its initial state, discarding any potential overlap.
+  </blockquote>
+  <ul>
+    <li>For a 101 sequence detector with input $0110101011001$.</li>
+    <li>The output would be $0000100010000$.</li>
+    <li>
+      After detecting $101$, the machine resets and starts looking for a new
+      pattern
+    </li>
+  </ul>
+  <table>
+    <caption>Mealy vs Moore FSM Comparison</caption>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Mealy FSM</th>
+        <th>Moore FSM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Output depends on</td>
+        <td>State and current input</td>
+        <td>Only on current state</td>
+      </tr>
+      <tr>
+        <td>Output changes</td>
+        <td>Immediately with input (can be faster)</td>
+        <td>Only on state change (synchronized)</td>
+      </tr>
+      <tr>
+        <td>Number of states</td>
+        <td>Usually fewer</td>
+        <td>Usually more</td>
+      </tr>
+      <tr>
+        <td>Output location</td>
+        <td>On transitions (edges/arcs)</td>
+        <td>On states (nodes/circles)</td>
+      </tr>
+      <tr>
+        <td>Example output timing</td>
+        <td>Output can change in the middle of a clock</td>
+        <td>Output changes only at clock edges</td>
+      </tr>
+      <tr>
+        <td>Hardware implementation</td>
+        <td>May need less hardware</td>
+        <td>May need more hardware</td>
+      </tr>
+      <tr>
+        <td>Suitability</td>
+        <td>Good for fast response, compact design</td>
+        <td>Good for predictable, stable outputs</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

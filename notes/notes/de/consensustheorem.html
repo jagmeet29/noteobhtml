@@ -1,0 +1,174 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <div class="res-container">
+    <h1>Proof of the Consensus Theorem</h1>
+
+    <p>The Consensus Theorem states that:</p>
+    <div class="equation-block">
+      $A \cdot B + \bar{A} \cdot C + B \cdot C = A \cdot B + \bar{A} \cdot C$
+    </div>
+
+    <p>
+      This theorem essentially claims that the term $B \cdot C$ is redundant.
+      Let's prove this using algebraic manipulation.
+    </p>
+
+    <h2>Algebraic Proof</h2>
+
+    <p>Starting with the left side of the equation:</p>
+    <p>$A \cdot B + \bar{A} \cdot C + B \cdot C$</p>
+
+    <h3>Step 1: Expand $B \cdot C$ using the identity property</h3>
+    <p>
+      Since $A + \bar{A} = 1$ for any Boolean variable (law of the excluded
+      middle), we can write:
+    </p>
+    <p>$B \cdot C = B \cdot C \cdot (A + \bar{A})$</p>
+
+    <h3>Step 2: Apply the distributive law</h3>
+    <p>
+      $B \cdot C \cdot (A + \bar{A}) = B \cdot C \cdot A + B \cdot C \cdot
+      \bar{A} = A \cdot B \cdot C + \bar{A} \cdot B \cdot C$
+    </p>
+
+    <h3>Step 3: Substitute back into the original expression</h3>
+    <p>
+      $A \cdot B + \bar{A} \cdot C + B \cdot C = A \cdot B + \bar{A} \cdot C + A
+      \cdot B \cdot C + \bar{A} \cdot B \cdot C$
+    </p>
+
+    <h3>Step 4: Apply the absorption law ($X + X \cdot Y = X$)</h3>
+    <ul>
+      <li>
+        $A \cdot B + A \cdot B \cdot C = A \cdot B$ (since $A \cdot B$ absorbs
+        $A \cdot B \cdot C$)
+      </li>
+      <li>
+        $\bar{A} \cdot C + \bar{A} \cdot B \cdot C = \bar{A} \cdot C$ (since
+        $\bar{A} \cdot C$ absorbs $\bar{A} \cdot B \cdot C$)
+      </li>
+    </ul>
+
+    <h3>Step 5: Combine results</h3>
+    <p>
+      $A \cdot B + \bar{A} \cdot C + A \cdot B \cdot C + \bar{A} \cdot B \cdot C
+      = A \cdot B + \bar{A} \cdot C$
+    </p>
+
+    <p>Thus:</p>
+    <div class="equation-block">
+      $A \cdot B + \bar{A} \cdot C + B \cdot C = A \cdot B + \bar{A} \cdot C$
+    </div>
+
+    <h2>Truth Table Verification</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>A</th>
+          <th>B</th>
+          <th>C</th>
+          <th>$A \cdot B$</th>
+          <th>$\bar{A} \cdot C$</th>
+          <th>$B \cdot C$</th>
+          <th>$A \cdot B + \bar{A} \cdot C + B \cdot C$</th>
+          <th>$A \cdot B + \bar{A} \cdot C$</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      The truth table confirms that both expressions produce identical outputs
+      for all possible inputs, verifying the consensus theorem.
+    </p>
+
+    <p>
+      This theorem is particularly useful in logic circuit simplification and
+      minimizing Boolean expressions.
+    </p>
+  </div>
+</div>

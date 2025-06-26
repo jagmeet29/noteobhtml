@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <title>Theorems</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async=""
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      };
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add click event listeners to all answer buttons
+        const answerButtons = document.querySelectorAll(".ans-button");
+        
+        answerButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Find the parent div first
+            const parentDiv = this.closest(".res-ques");
+            
+            // Then find the answer content within this parent
+            const answerContent = parentDiv.querySelector(".ans-content");
+            
+            // Toggle its visibility with smooth animation
+            if (!answerContent.classList.contains("visible")) {
+              // Update button text
+              this.textContent = this.textContent.includes("Show") || 
+                                this.textContent.includes("Answer") ? 
+                                "Hide Answer" : "Hide";
+              
+              // Show content with animation
+              answerContent.classList.add("visible");
+              
+              // If there's MathJax content, we need to rerender it
+              if (typeof MathJax !== 'undefined' && answerContent.querySelector(".MathJax")) {
+                setTimeout(() => {
+                  MathJax.typeset([answerContent]);
+                }, 100);
+              }
+            } else {
+              // Update button text
+              this.textContent = this.textContent.includes("Hide") ? 
+                                (this.textContent.includes("Hide Answer") ? 
+                                "Show Answer" : "Answer") : 
+                                "Answer";
+              
+              // Hide content with animation
+              answerContent.classList.remove("visible");
+            }
+          });
+        });
+      });
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="stylesheet" href="../../css.css" />
+  </head>
+  <body>
+    <div id="container">
+    <h1>Theorems</h1>
+    <h2>Theorem 1</h2>
+<h3>Handshaking Theorem</h3>
+   <blockquote> Let $G=(V,E)$ be an undirected graph with m edges. Then $$2m=\sum_{v
+    \epsilon V}deg(v)$$</blockquote>
+    
+    <p>(Note this applies even if multiple edges or loops are present.)</p>
+    <div class="res-ques">
+      <h4>How many edges are there in a graph with 10 vertices each of degree six?</h4>
+      <button class="ans-button">Show Answer</button>
+ <div class="ans-content">
+  <p> Because the sum of the degrees of the vertices is 6 · 10 = 60, it follows that 2m = 60
+    where m is the number of edges. Therefore, m = 30.</p>
+</div></div>
+<p></p>
+<div class="res-ques">
+      <h4>It is possible to have $5,\ 4, \ 3, \ 7, \ 6$ degrees in a graph ?</h4>
+      <button class="ans-button">Show Answer</button>
+ <div class="ans-content">
+  <p> No, Because $ \sum deg(v) = 5+4+3+7+6 = 25$ and $25=2e$ => $e=25\div 2=12.5$ and it is not possible to have 12.5 edges in a graph.</p>
+</div></div>
+
+
+<p></p>
+<div class="res-ques">
+      <h4>A graph $G$ has 21 edges, 3 vertices of degree 4 and all other vertices of degree 3. Find the number of vertices in $G$ ?</h4>
+      <button class="ans-button">Show Answer</button>
+ <div class="ans-content">
+  <p>Let the total number of vertices be $n$.  
+    $$\begin{align*}
+    \sum \deg(v) &= 3 \times \deg(4) + (n - 3) \times \deg(3) \\
+    2e &= 3 \times 4 + (n - 3) \times 3 \\
+    2 \times 21 &= 12 + 3(n - 3) \\
+    42 &= 12 + 3n - 9 \\
+    42 &= 3n + 3 \\
+    3n &= 39 \\
+    n &= 13
+    \end{align*} $$ </p>
+</div></div>
+<p></p>
+<div class="res-ques">
+  <h4>Find $n$, if a complete graph having $n$ vertices has 15 edges.</h4>
+  <button class="ans-button">Show Answer</button>
+
+  <div class="ans-content">
+<p>By <a href="Graphs.html#kdeg">degree of complete graph $K_n$</a>  and Handshaking theorem.<br> $$\begin{align*} \\ 
+  2\ e &= n (n-1)\\
+2 \times 15 &= n^2 - n \\
+30 &= n^2 - n \\
+n &= 6,-5 \end{align*}$$ Ans $n=6$.</p>
+  </div>
+</div>
+
+<h2>Theorem 2</h2>
+    <blockquote>An undirected graph has an even number of vertices of odd degree.</blockquote>
+<h3>Proof</h3>
+    <p>Let $V_1$ and $V_2$ be the set of even degree and the set of odd degree vertices respectively, in a graph $G=(V,E)$ with $m$ edges. Then $$2m=\sum_{v\epsilon V_1} deg(v)+\sum_{v\epsilon V_2} deg(v)$$ </p>
+    <p>
+      So, form the equation it can be seen LHS is multiple of 2 or even. So RHS must also be even, the first term is even as it is sum of even degree vertices. So, the second term must also be even. So, the number of odd degree vertices must be even.
+     </p>
+     <h2>Theorem 3</h2>
+     <blockquote>Let $G=(V,E)$ be graph with directed edges. Then $$\sum_{v \epsilon V} deg^-(v)=\sum_{v \epsilon V}deg^+(v)=|E|$$</blockquote>
+<h2>Theorem 4</h2>
+<blockquote>A simple graph is bipartite if and only if it is possible to assign two different colors to every vertex of the graph so that not adjacent vertex are assigned the same color.</blockquote>
+<h1>Planar Graph Theorems</h1>
+<h2>Theorem 1</h2>
+<h3>Euler's Formaula</h3>
+<blockquote>Let $G$ be a connected planar graph with $e$ edges and $v$ vertices. Let $r$ be the number of regions in a planner Representation of $G$. Then $r=e-v+2$.</blockquote><div class="res-container"><svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Edges (black lines) -->
+  <line x1="50" y1="50" x2="350" y2="50" stroke="black" stroke-width="2"/>
+  <line x1="350" y1="50" x2="350" y2="200" stroke="black" stroke-width="2"/>
+  <line x1="350" y1="200" x2="50" y2="200" stroke="black" stroke-width="2"/>
+  <line x1="50" y1="200" x2="50" y2="50" stroke="black" stroke-width="2"/>
+  
+ 
+  
+  <!-- Region labels -->
+  <text x="200" y="90" font-family="Times New Roman" font-size="19" fill="green" text-anchor="middle">R₁</text>
+  <text x="10" y="100" font-family="Times New Roman" font-size="19" fill="green"  text-anchor="middle">R₂</text>
+  
+  <!-- Vertices (light gray circles) -->
+  <circle cx="50" cy="50" r="20" fill="lightgray" stroke="black" stroke-width="1.5"/>
+  <circle cx="350" cy="50" r="20" fill="lightgray" stroke="black" stroke-width="1.5"/>
+  <circle cx="350" cy="200" r="20" fill="lightgray" stroke="black" stroke-width="1.5"/>
+  <circle cx="50" cy="200" r="20" fill="lightgray" stroke="black" stroke-width="1.5"/>
+  
+  <!-- Vertex labels -->
+  <text x="50" y="56" font-family="Times New Roman" font-size="19" fill="black" text-anchor="middle">a</text>
+  <text x="350" y="56" font-family="Times New Roman" font-size="19" fill="black" text-anchor="middle">b</text>
+  <text x="350" y="206" font-family="Times New Roman" font-size="19" fill="black" text-anchor="middle">c</text>
+  <text x="50" y="206" font-family="Times New Roman" font-size="19" fill="black" text-anchor="middle">d</text>
+</svg>
+</div>
+
+</body>
+</html>
+ 

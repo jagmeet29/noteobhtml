@@ -1,0 +1,105 @@
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- Graph container elements -->
+<!-- Graph container elements -->
+<div id="graph_1"></div>
+<div id="graph_2"></div>
+
+<!-- Define the graph data -->
+<script>
+  // Graph data definitions - you only need to edit this part for each graph
+  const graphsData = {
+    'graph_1': {
+      nodes: [
+        {id: 'a', x: 100, y: 50},
+        {id: 'b', x: 150, y: 50},
+        {id: 'c', x: 200, y: 75},
+        {id: 'd', x: 175, y: 125},
+        {id: 'e', x: 100, y: 125},
+        {id: 'f', x: 50, y: 100},
+        {id: 'g', x: 50, y: 50},
+        {id: 'w', x: 19, y: 90}
+      ],
+      links: [
+        {source: 'a', target: 'b'},
+        {source: 'a', target: 'g'},
+        {source: 'a', target: 'f'},
+        {source: 'a', target: 'e'},
+        {source: 'b', target: 'c'},
+        {source: 'b', target: 'd'},
+        {source: 'b', target: 'e'},
+        {source: 'c', target: 'd'},
+        {source: 'd', target: 'e'},
+        {source: 'e', target: 'f'},
+        {source: 'f', target: 'g'},
+        {source: 'w', target: 'g'}
+      ]
+    },
+    'graph_2': {
+      nodes: [
+        {id: 'a', x: 100, y: 50},
+        {id: 'b', x: 150, y: 50},
+        {id: 'c', x: 200, y: 75}
+      ],
+      links: [
+        {source: 'a', target: 'b'},
+        {source: 'b', target: 'c'},
+        {source: 'c', target: 'a'}
+      ]
+    }
+  };
+
+  // Unified rendering script - no need to modify this part
+  document.addEventListener('DOMContentLoaded', function() {
+    // Render each graph with its data
+    for (const graphId in graphsData) {
+      const graphData = graphsData[graphId];
+      
+      // Create SVG
+      const svg = d3.select('#' + graphId)
+        .append('svg')
+        .attr('width', 600)
+        .attr('height', 200);
+      
+      const g = svg.append('g')
+        .attr('transform', 'translate(50, 0)');
+      
+      // Add links
+      g.selectAll('line')
+        .data(graphData.links)
+        .enter()
+        .append('line')
+        .attr('class', 'link')
+        .attr('x1', d => graphData.nodes.find(n => n.id === d.source).x)
+        .attr('y1', d => graphData.nodes.find(n => n.id === d.source).y)
+        .attr('x2', d => graphData.nodes.find(n => n.id === d.target).x)
+        .attr('y2', d => graphData.nodes.find(n => n.id === d.target).y)
+        .style('stroke', '#999')
+        .style('stroke-width', 1);
+      
+      // Add nodes
+      g.selectAll('circle')
+        .data(graphData.nodes)
+        .enter()
+        .append('circle')
+        .attr('class', 'node')
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)
+        .attr('r', 5)
+        .style('fill', '#69b3a2');
+      
+      // Add labels
+      g.selectAll('text')
+        .data(graphData.nodes)
+        .enter()
+        .append('text')
+        .attr('class', 'label')
+        .attr('x', d => d.x)
+        .attr('y', d => d.y - 10)
+        .text(d => d.id)
+        .style('text-anchor', 'middle')
+        .style('font-family', 'Arial')
+        .style('font-size', '12px');
+    }
+  });
+</script>

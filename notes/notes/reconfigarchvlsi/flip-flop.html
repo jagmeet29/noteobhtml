@@ -1,0 +1,276 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>$1$-Bit Storage Element</h1>
+  <h2>SR Latch</h2>
+  <blockquote>
+    The SR latch (Set-Reset latch) is a fundamental digital storage element that
+    serves as the building block for more complex sequential circuits. It
+    consists of two cross-coupled logic gates that create a feedback loop,
+    allowing the circuit to store one bit of information.
+  </blockquote>
+
+  <h3>Basic Structure and Types</h3>
+  <p>The SR latch can be implemented using either:</p>
+  <ol>
+    <li>
+      <strong>Two cross-coupled NOR gates</strong>: In this configuration, both
+      inputs are normally \(0\), and applying a \(1\) to either input changes
+      the state.
+    </li>
+    <li>
+      <strong>Two cross-coupled NAND gates</strong>: Here, both inputs are
+      normally \(1\), and applying a \(0\) to either input changes the state.
+    </li>
+  </ol>
+  <p>
+    In both implementations, the circuit has two outputs, \(Q\) and \(Q'\),
+    which are normally complementary to each other.
+  </p>
+  <div class="res-container">
+    <center>
+      <img src="1.png" width="700px" />
+      <caption>
+         NOR Based SR Latch
+      </caption>
+    </center>
+  </div>
+  <div class="res-container">
+    <center>
+      <img src="2.png"  width="700px"/>
+      <caption>
+        NAND Based SR Latch
+      </caption>
+    </center>
+  </div>
+
+  <h3>Operation of NOR-Based SR Latch</h3>
+  <p>The NOR-based SR latch operates as follows:</p>
+  <ul>
+    <li>
+      <strong>Set State</strong>: When \(Q=1\) and \(Q'=0\), the latch is in the
+      set state
+    </li>
+    <li>
+      <strong>Reset State</strong>: When \(Q=0\) and \(Q'=1\), the latch is in
+      the reset state
+    </li>
+  </ul>
+  <p>
+    Under normal operation, both inputs remain at \(0\) unless a state change is
+    desired. The latch's behavior follows this truth table:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>S</th>
+        <th>R</th>
+        <th>Q</th>
+        <th>Q'</th>
+        <th>State Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td>Last \(Q\)</td>
+        <td>Last \(Q'\)</td>
+        <td>Memory state (holds previous value)</td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>\(0\)</td>
+        <td>\(1\)</td>
+        <td>Reset state</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>0</td>
+        <td>\(1\)</td>
+        <td>\(0\)</td>
+        <td>Set state</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>\(0\)</td>
+        <td>\(0\)</td>
+        <td>Forbidden state</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The Forbidden State</h3>
+  <p>
+    The input combination \(S=R=1\) in a NOR-based latch causes both outputs to
+    go to \(0\), violating the requirement that outputs be complementary. This
+    is called the "forbidden state" or "invalid state".
+  </p>
+  <p>
+    When both inputs subsequently return to \(0\) from this forbidden state, the
+    next state is unpredictable and depends on which input returns to \(0\)
+    first. This can lead to:
+  </p>
+  <ul>
+    <li>Race conditions</li>
+    <li>Metastable states</li>
+    <li>Unpredictable outputs</li>
+  </ul>
+  <p>This condition should be avoided in practical applications.</p>
+
+  <h3>NAND-Based SR Latch</h3>
+  <p>
+    The NAND-based SR latch operates with inverted input logic compared to the
+    NOR version:
+  </p>
+  <ul>
+    <li>Normally both inputs are kept at \(1\)</li>
+    <li>\(S=0, R=1\) puts the latch in the set state (\(Q=1, Q'=0\))</li>
+    <li>\(S=1, R=0\) puts the latch in the reset state (\(Q=0, Q'=1\))</li>
+    <li>\(S=R=0\) is the forbidden state</li>
+  </ul>
+  <p>
+    This implementation is sometimes referred to as an \(S'R'\) latch to
+    indicate that the inputs are active-low.
+  </p>
+  <div class="res-container">
+    <center>
+      <img src="3.png" width="700px" />
+      <caption>
+        SR Latch with Enable
+      </caption>
+    </center>
+  </div>
+  <h3>SR Latch with Control Input</h3>
+  <p>
+    The basic SR latch can be modified by adding a control input (also called
+    Enable or En) that determines when the state of the latch can be changed.
+    This creates a gated SR latch which:
+  </p>
+  <ul>
+    <li>
+      Uses an additional input to enable/disable the \(S\) and \(R\) inputs
+    </li>
+    <li>
+      Prevents the latch from changing state when the enable input is inactive
+    </li>
+    <li>Allows state changes only when the enable signal is active</li>
+  </ul>
+  <p>In the NAND implementation with enable:</p>
+  <ul>
+    <li>
+      When \(En=0\), the state of the latch cannot change regardless of \(S\)
+      and \(R\) values
+    </li>
+    <li>
+      When \(En=1\), the \(S\) and \(R\) inputs can affect the latch state
+    </li>
+    <li>When \(En=1, S=1, R=0\), the latch enters the set state</li>
+    <li>When \(En=1, S=0, R=1\), the latch enters the reset state</li>
+  </ul>
+  <p>
+    If \(En=1\) and both \(S\) and \(R\) are \(1\) (for NAND implementation),
+    the circuit enters an indeterminate state, which should be avoided.
+  </p>
+
+  <h2>D Latch</h2>
+  <blockquote>The D latch is an improvement over the SR latch that elegantly solves the indeterminate state problem. This issue occurs in SR latches when both S and R inputs are 1 simultaneously, creating an undefined or forbidden state.</blockquote>
+  <h3>How D Latch Eliminates the Indeterminate State</h3>
+  <p>The D latch resolves this problem by using only one input (D for Data) and connecting it directly to the S input while its complement feeds into the R input. This design ensures that S and R can never both be 1 at the same time, thus eliminating the possibility of the forbidden state</p>
+<b>The D latch has two key inputs:</b>  <ul>
+<li>
+    D (Data): Determines what value (0 or 1) will be stored</li><li>
+    
+    En (Enable): Controls when the latch responds to the D input</li></ul>
+<div class="res-container">
+
+  <img src="8.png" width="700px">
+</div>
+   <h3> Operation of the D Latch</h3>
+
+<p>When the Enable input is HIGH (1), the output Q follows whatever value is present at the D input. This creates a "transparent" behavior, where changes at D are immediately reflected at Q.<br><br>
+
+  When Enable is LOW (0), the latch maintains its last state regardless of changes to the D input. This allows it to function as a memory element, holding data until the Enable signal permits an update</p>
+
+
+  <table>
+<tr>
+  <th>En</th>
+  <th>D</th>
+  <th>Q</th>
+  <th>State Description</th>
+</tr>
+<tr>
+  <td>0</td><td>any</td><td>any</td><td>No change</td>
+</tr>
+<tr>
+  <td>1 </td><td>0</td><td>0</td><td>Reset state</td>
+</tr>
+<tr>
+  <td>1</td><td>1</td><td>1</td><td>Set state</td>
+</tr>
+  </table>
+  <h2>Issues with Latches in Sequential Circuits</h2>
+  The problem with latches in sequential circuits stems from their level-sensitive nature:
+  <ol><li>
+  When a latch's enable input is high, it remains transparent, allowing input changes to affect output</li><li>
+  
+  In sequential circuits, outputs feed back as inputs through combinational logic</li><li>
+  
+  This creates a continuous feedback loop that can cause unstable operation during the active clock period</li><li>
+  
+  This feedback path is what makes latches problematic in sequential circuits with common clock sources</li></ol>
+
+
+
+
+
+  <h2>Latch vs. Flip-Flop Comparison</h2>
+
+<table >
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Latch</th>
+      <th>Flip-Flop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Triggering</strong></td>
+      <td>Level-triggered</td>
+      <td>Edge-triggered</td>
+    </tr>
+    <tr>
+      <td><strong>Sensitivity</strong></td>
+      <td>Sensitive to the <em>level</em> of the control signal (e.g., Enable = 1)</td>
+      <td>Sensitive to the <em>transition</em> (edge) of the clock signal (0→1 or 1→0)</td>
+    </tr>
+    <tr>
+      <td><strong>Response to Inputs</strong></td>
+      <td>Output can change multiple times if input changes while the enable signal is active ("transparent")</td>
+      <td>Samples input and changes output <em>only</em> at the specific clock edge</td>
+    </tr>
+    <tr>
+      <td><strong>Operation in Sequential Circuits (Common Clock)</strong></td>
+      <td>Can cause unreliable/unpredictable behavior due to feedback loops while the clock is active</td>
+      <td>Designed for reliable operation; state changes occur synchronously with clock edges</td>
+    </tr>
+    <tr>
+      <td><strong>Problem Addressed</strong></td>
+      <td>Solves SR latch's indeterminate state (D Latch)</td>
+      <td>Solves latch's sensitivity to pulse <em>duration</em>, enabling predictable synchronous operation</td>
+    </tr>
+    <tr>
+      <td><strong>Construction Methods Discussed</strong></td>
+      <td>Cross-coupled gates (like SR), Gated D Latch</td>
+      <td>Master-Slave configuration (using two latches), specific edge-triggering circuit designs</td>
+    </tr>
+  </tbody>
+</table>
+
+

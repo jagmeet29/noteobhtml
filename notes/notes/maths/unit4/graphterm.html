@@ -1,0 +1,231 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+  };
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add click event listeners to all answer buttons
+    const answerButtons = document.querySelectorAll(".ans-button");
+    
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        // Find the parent div first
+        const parentDiv = this.closest(".res-ques");
+        
+        // Then find the answer content within this parent
+        const answerContent = parentDiv.querySelector(".ans-content");
+        
+        // Toggle its visibility with smooth animation
+        if (!answerContent.classList.contains("visible")) {
+          // Update button text
+          this.textContent = this.textContent.includes("Show") || 
+                            this.textContent.includes("Answer") ? 
+                            "Hide Answer" : "Hide";
+          
+          // Show content with animation
+          answerContent.classList.add("visible");
+          
+          // If there's MathJax content, we need to rerender it
+          if (typeof MathJax !== 'undefined' && answerContent.querySelector(".MathJax")) {
+            setTimeout(() => {
+              MathJax.typeset([answerContent]);
+            }, 100);
+          }
+        } else {
+          // Update button text
+          this.textContent = this.textContent.includes("Hide") ? 
+                            (this.textContent.includes("Hide Answer") ? 
+                            "Show Answer" : "Answer") : 
+                            "Answer";
+          
+          // Hide content with animation
+          answerContent.classList.remove("visible");
+        }
+      });
+    });
+  });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../../css.css" />
+<div id="container">
+  <h1>Graph Terminology</h1>
+
+  <h3 id="one">Adjacent Vertices (or Neighbors)</h4>
+
+  <ul>
+    <li>
+      If there is a edge $e$ that connects vertices $u$ and $v$, then $u$ and
+      $v$ are said to adjacent.
+    </li>
+    <li>This simply means that $u$ and $v$ are directly connected.</li>
+  </ul>
+<h3>Loop</h3>
+  <ul>
+    <li>
+      A loop is an edge that connects a vertex to itself. In other words, it is
+      an edge that starts and ends at the same vertex.
+    </li>
+    <li>Loops are often represented as a circle or a curve.</li>
+    <li>Loops can be found in both directed and undirected graphs.</li>
+    </ul>
+
+  <h3>Incidence</h4>
+
+  <ul>
+    <li>
+      When an edge $e$ connects both $u$ and $v$, we $e$ incident with $u$ and
+      $v$.
+    </li>
+    <li>
+      Being "incident" means that the edge touches or connects the respective
+      vertices.
+    </li>
+  </ul>
+
+  <h3>Neighborhood of a vertex</h4>
+
+  <ul>
+    <li>
+      The neighborhood of a vertex $v$ is written as $N(v)$, is simply the set
+      of all vertices that are directly connected to $v$ by an edge.
+    </li>
+    <li>These vertices are called neighbors of $v$.</li>
+  </ul>
+
+  <h5>Example</h5>
+
+  <p>
+    $N(A) = \{B,C\}$ - A's neighbors are B and C<br />$N(B) = \{A,D\}$ - B's
+    neighbors are A and D
+  </p>
+
+  <h3>Neighborhood of a set of vertices</h4>
+
+  <ul>
+    <li>
+      The neighborhood of a set of vertices is all the vertices that connect
+      directly to at least one vertex in your set.
+    </li>
+    <li>
+      Think of it this way: if you have a group of people, their collective
+      neighborhood includes everyone who is friend with at lest one person in
+      the group.
+    </li>
+    <li>
+      $N(A) =$ the union of all the neighborhoods of individual vertices in A.
+    </li>
+  </ul>
+
+  <h5>Example</h5>
+
+  <p>$N(\{A,B\}) = \{A,B,C,D\}$</p>
+
+  <h3>Degree of vertex</h4>
+
+  <ul>
+    <li>It is the number of edges incident on the vertex.</li>
+    <li>Loop contributes twice to the degree of the vertex.</li>
+    <li>The degree of the vertex is denoted by $deg(v)$.</li>
+  </ul>
+  <h3>Insolated vertx</h4>
+
+  <ul>
+    <li>It is a vertex of degree zero.</li>
+    <li>It has no adjacent vertex.</li>
+  </ul>
+  <h3>Pendent</h3>
+
+  <ul>
+    <li>A vertex with degree one.</li>
+    <li>It is adjacent to exactly one vertex.</li>
+  </ul>
+  <div class="res-container res-ques">
+    <img src="image-20250419043606040.png" />
+    
+  </div>
+
+  <br />
+  <hr />
+
+  <h3 id="two">Directional Graph</h3>
+  <ul>
+    <li>In a directional graph, the edges are called<b> arcs</b>.</li>
+
+    <li>
+      In a directional graph, the degree of a vertex is divided into two parts:
+    </li>
+    <ol>
+      <li>
+      <b> In-degree $deg^-(v)$</b>: the number of arcs directed towards the vertex.
+      </li>
+      <li>
+      <b>Out-degree $deg^+(v)$</b>: the number of arcs directed away from the vertex.
+      </li>
+    </ol>
+    <li>Loop at a vertex contributes 1 to in-degree and 1 to out-degree.</li>
+  </ul>
+  <div class="res-ques">
+    <h3>Find the in-degree and out-degree of each vertex,</h3>
+    <img src="2.png" />
+    <button class="ans-button" style="margin: 10px auto">Show Answer</button>
+    <div class="ans-content">
+      <p>
+        In-degree: a=2, b=2, c=3, d=2, e=3<br />Out-degree: a=4, b=1, c=2, d=2,
+        e=3
+      </p>
+    </div>
+  </div>
+  <h3>Cycle</h3>
+<ul
+>  <li>
+    A cycle is a path in which the first and last vertices are the same. In
+    other words, it is a closed loop in the graph.</li>
+    <li>A path that starts and ends at the same vertex, following the direction of edges</li>
+</ul>
+  <h3>Adjacent Vertex in directed graph</h3>
+  <p>
+    In a graph $G$ having edge $(u,v)$. $u$ is said to be adjacent to $v$ and
+    $v$ is said to be adjacent to $u$.
+  </p>
+  <h3 id="initialvertex">Initial & Terminating vertex</h3>
+  
+  <ul>
+  <li>
+    The vertex $u$ is called initial vertex of $(u,v)$ and $v$ is called the
+    terminating vertex or end vertex of $(u,v)$.
+  </li>
+
+  <li>The initial and terminating vertex of loop are same.</li>
+</ul>
+<h3>Source & Sink</h3>
+<ul>
+  <li>A vertex with in-degree 0 is called a source.</li>
+  <li>A vertex with out-degree 0 is called a sink.</li>
+</ul>
+<h3>Parallel Edges</h3>
+<ul>
+  <li>Two or more edges that connect the same pair of vertices are called
+    parallel edges.</li>
+  <li>Parallel edges are not allowed in simple graphs.</li>
+  </ul>
+
+  <h3>Degree Sequence</h3>
+  <ul>
+    <li>It is the list of degrees of all vertices in a graph.</li>
+    <li>It is usually written in non-increasing order.</li>
+  </ul>
+</div>
+

@@ -1,0 +1,290 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>Important Questions</h1>
+
+  <h2>1. Digital Logic Gates</h2>
+
+  <p>
+    <strong>Definition:</strong><br />
+    Digital logic gates implement Boolean functions using electronic circuits.
+    They process binary signals (0 for low/off, 1 for high/on) and form the
+    basis for digital systems like computers, calculators, and many other
+    electronic devices.
+  </p>
+
+  <p>
+    <strong>Working Principle:</strong><br />
+    Each gate performs a specific operation based on Boolean algebra. The output
+    is determined by the logical relationship defined for the gate.
+  </p>
+
+  <hr />
+
+  <h2>2. Basic Types of Logic Gates</h2>
+
+  <h3>a. AND Gate</h3>
+  <p><strong>Function:</strong> Outputs 1 only if <em>all</em> inputs are 1.</p>
+  <p><strong>Boolean Expression:</strong> \( Y = A \cdot B \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (A AND B)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </table>
+
+  <h3>b. OR Gate</h3>
+  <p><strong>Function:</strong> Outputs 1 if <em>any</em> input is 1.</p>
+  <p><strong>Boolean Expression:</strong> \( Y = A + B \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (A OR B)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </table>
+
+  <h3>c. NOT Gate (Inverter)</h3>
+  <p><strong>Function:</strong> Inverts the input signal.</p>
+  <p><strong>Boolean Expression:</strong> \( Y = \overline{A} \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>Y (NOT A)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+  <h3>d. NAND Gate</h3>
+  <p>
+    <strong>Function:</strong> Outputs 0 only when <em>all</em> inputs are 1.
+  </p>
+  <p><strong>Boolean Expression:</strong> \( Y = \overline{A \cdot B} \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (NAND)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+  <h3>e. NOR Gate</h3>
+  <p>
+    <strong>Function:</strong> Outputs 1 only when <em>all</em> inputs are 0.
+  </p>
+  <p><strong>Boolean Expression:</strong> \( Y = \overline{A + B} \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (NOR)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+  <h3>f. XOR Gate (Exclusive OR)</h3>
+  <p>
+    <strong>Function:</strong> Outputs 1 if the inputs are <em>different</em>.
+    Output is 1 when number of inputs is odd.
+  </p>
+  <p>
+    <strong>Boolean Expressions:</strong><br />
+    \( Y = A \oplus B \) <br />
+    or <br />
+    \( Y = A\overline{B} + \overline{A}B \)
+  </p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (XOR)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+  <h3>g. XNOR Gate (Exclusive NOR)</h3>
+  <p>
+    <strong>Function:</strong> Outputs 1 if the inputs are <em>the same</em>.
+    Output is 1 when number of inputs is even.
+  </p>
+  <p><strong>Boolean Expression:</strong> \( Y = \overline{A \oplus B} \)</p>
+  <p><strong>Truth Table:</strong></p>
+  <table>
+    <tr>
+      <th>A</th>
+      <th>B</th>
+      <th>Y (XNOR)</th>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </table>
+
+  <hr />
+
+  <h2>3. Important Concepts</h2>
+
+  <p>
+    <strong>Logic:</strong><br />
+    Logic is derived from the Greek word <em>logos</em>, meaning reason or
+    discourse. It aims to distinguish good reasoning from bad by analyzing
+    arguments and their validity.
+  </p>
+
+  <p>
+    <strong>Boolean Algebra:</strong><br />
+    The mathematical framework used to design and analyze digital logic
+    circuits. It uses operators like AND, OR, and NOT to represent logical
+    expressions.
+  </p>
+
+  <p>
+    <strong>Universal Gates:</strong><br />
+    NAND and NOR gates are known as universal gates because you can construct
+    any other type of gate (or complete digital system) using just NAND or just
+    NOR gates.
+  </p>
+
+  <p>
+    <strong>Truth Tables:</strong><br />
+    A truth table lists all possible input combinations and the corresponding
+    output for a gate. They are essential for understanding and designing logic
+    circuits.
+  </p>
+
+  <p>
+    <strong>Logic Symbols:</strong><br />
+    Each gate has a standardized symbol used in circuit diagrams. These symbols
+    help in visualizing and planning digital circuits.
+  </p>
+</div>

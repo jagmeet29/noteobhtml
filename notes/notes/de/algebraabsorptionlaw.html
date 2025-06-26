@@ -1,0 +1,62 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <div class="res-container">
+  <h1>Boolean Algebra Absorption Law: Proof</h1>
+
+  <p>
+    The Absorption Law in Boolean algebra consists of two fundamental identities that demonstrate how certain terms can be "absorbed" in Boolean expressions:
+  </p>
+
+  <ol>
+    <li>$A + (A \cdot B) = A$ (First absorption identity)</li>
+    <li>$A \cdot (A + B) = A$ (Second absorption identity)</li>
+  </ol>
+
+  <p>Let's prove both identities using algebraic methods and Boolean properties.</p>
+
+  <h2>First Absorption Identity: $A + (A \cdot B) = A$</h2>
+
+  <h3>Method 1:</h3>
+  <div class="proof">
+    <p>$A + (A \cdot B)$</p>
+    <p>= $A \cdot 1 + A \cdot B$ (using Identity law: $A = A \cdot 1$)</p>
+    <p>= $A(1 + B)$ (using Distributive law)</p>
+    <p>= $A \cdot 1$ (since $1 + B = 1$ in Boolean algebra)</p>
+    <p>= $A$ (using Identity law: $A \cdot 1 = A$)</p>
+  </div>
+
+  <h3>Method 2:</h3>
+  <div class="proof">
+    <p>$A + AB$</p>
+    <p>= $A(1 + B)$ (factoring out the common term $A$)</p>
+    <p>= $A \cdot 1$ (since $1 + B = 1$)</p>
+    <p>= $A$</p>
+  </div>
+
+  <h2>Second Absorption Identity: $A \cdot (A + B) = A$</h2>
+
+  <h3>Method 1:</h3>
+  <div class="proof">
+    <p>$A \cdot (A + B)$</p>
+    <p>= $A \cdot A + A \cdot B$ (using Distributive law)</p>
+    <p>= $A + A \cdot B$ (using Idempotent law: $A \cdot A = A$)</p>
+    <p>= $A$ (by the first absorption identity)</p>
+  </div>
+
+  <h3>Method 2:</h3>
+  <div class="proof">
+    <p>$A(A + B)$</p>
+    <p>= $AA + AB$ (using Distributive law)</p>
+    <p>= $A + AB$ (using Idempotent law: $AA = A$)</p>
+    <p>= $A(1 + B)$ (using Distributive law)</p>
+    <p>= $A \cdot 1$ (since $1 + B = 1$)</p>
+    <p>= $A$</p>
+  </div>
+
+  <p>
+    These proofs demonstrate why the Absorption Law is a fundamental property in Boolean algebra, widely used in digital logic design, set theory, and mathematical logic. The law shows how certain terms can be "absorbed" without changing the overall value of the expression.
+    (<a href="https://en.wikipedia.org/wiki/Absorption_law" target="_blank">source</a>)
+  </p>
+</div>

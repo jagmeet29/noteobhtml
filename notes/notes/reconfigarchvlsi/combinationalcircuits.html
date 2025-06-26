@@ -1,0 +1,188 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+  };
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add click event listeners to all answer buttons
+    const answerButtons = document.querySelectorAll(".ans-button");
+
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        // Find the parent div first
+        const parentDiv = this.closest(".res-ques");
+
+        // Then find the answer content within this parent
+        const answerContent = parentDiv.querySelector(".ans-content");
+
+        // Toggle its visibility with smooth animation
+        if (!answerContent.classList.contains("visible")) {
+          // Update button text
+          this.textContent =
+            this.textContent.includes("Show") ||
+            this.textContent.includes("Answer")
+              ? "Hide Answer"
+              : "Hide";
+
+          // Show content with animation
+          answerContent.classList.add("visible");
+
+          // If there's MathJax content, we need to rerender it
+          if (
+            typeof MathJax !== "undefined" &&
+            answerContent.querySelector(".MathJax")
+          ) {
+            setTimeout(() => {
+              MathJax.typeset([answerContent]);
+            }, 100);
+          }
+        } else {
+          // Update button text
+          this.textContent = this.textContent.includes("Hide")
+            ? this.textContent.includes("Hide Answer")
+              ? "Show Answer"
+              : "Answer"
+            : "Answer";
+
+          // Hide content with animation
+          answerContent.classList.remove("visible");
+        }
+      });
+    });
+  });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="stylesheet" href="../css.css" />
+<div id="container">
+  <h1>Combinational Circuit</h1>
+  <blockquote>
+    Combinational circuits are digital circuits whose outputs depend solely on
+    the current values of the inputs. Unlike sequential circuits, combinational
+    circuits do not have memory elements or feedback paths, meaning they don't
+    depend on past input values.
+  </blockquote>
+  <h4>Characteristics of Combinational Circuits</h4>
+  <ul>
+    <li>No Memory </il>
+      <li>No Feedback</li>
+      <li>Deterministic (Same input produces same output)</li>
+      <li>Timeless (Instantly output change as the input changes)</li>
+
+  </ul>
+  <center><div class="res-container" width="600" height="400" >
+ 
+    <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg" style="border-radius: 10px;">
+      <!-- Background -->
+      <rect width="600" height="400" fill="#fff" />
+      
+      <!-- Input signals -->
+      <line x1="50" y1="100" x2="150" y2="100" stroke="black" stroke-width="2" />
+      <polygon points="145,95 155,100 145,105" fill="black" />
+      <text x="50" y="90" font-family="Arial" font-size="14">Input Signals</text>
+      
+      <!-- Combinational Logic -->
+      <rect x="150" y="70" width="100" height="120" fill="white" stroke="black" stroke-width="2" />
+      <text x="155" y="130" font-family="Arial" font-size="14">Combinational</text>
+      <text x="175" y="150" font-family="Arial" font-size="14">Logic</text>
+      
+      <!-- Connection to memory element -->
+      <line x1="250" y1="100" x2="300" y2="100" stroke="black" stroke-width="2" />
+      <polygon points="295,95 305,100 295,105" fill="black" />
+      
+      <!-- Clock -->
+      <line x1="50" y1="250" x2="300" y2="250" stroke="black" stroke-width="2" />
+      <polygon points="295,245 305,250 295,255" fill="black" />
+      <text x="100" y="240" font-family="Arial" font-size="14">Clock</text>
+      
+      <!-- Memory Element -->
+      <rect x="300" y="70" width="120" height="200" fill="#d1e7dd" stroke="black" stroke-width="2" />
+      <text x="315" y="130" font-family="Arial" font-size="16" font-weight="bold">Memory</text>
+      <text x="315" y="150" font-family="Arial" font-size="16" font-weight="bold">Element</text>
+      <text x="325" y="180" font-family="Arial" font-size="12">(D Flip-Flop)</text>
+      
+      <!-- Output -->
+      <line x1="420" y1="100" x2="500" y2="100" stroke="black" stroke-width="2" />
+      <polygon points="495,95 505,100 495,105" fill="black" />
+      <text x="450" y="90" font-family="Arial" font-size="14">Output</text>
+      
+      <!-- Feedback path -->
+      <path d="M 420 150 L 480 150 L 480 200 L 100 200 L 100 150 L 150 150" fill="none" stroke="black" stroke-width="2" stroke-dasharray="5,5" />
+      <polygon points="145,145 155,150 145,155" fill="black" />
+      <text x="220" y="220" font-family="Arial" font-size="14" fill="#d63384">Feedback Path (State)</text>
+      
+      <!-- Next State Logic -->
+      <text x="170" y="40" font-family="Arial" font-size="14">Next State Logic</text>
+      
+      <!-- Present State -->
+      <text x="330" y="40" font-family="Arial" font-size="14">Present State</text>
+      
+      <!-- Title -->
+      <text x="170" y="350" font-family="Arial" font-size="18" font-weight="bold">Basic Sequential Circuit Structure</text>
+  </svg>
+  </div></center>
+  
+  <h1>Sequential Circuit</h1>
+  
+  <blockquote>
+    Sequential circuits are a fundamental class of digital circuits whose outputs depend not only on the current input values but also on the previous history of inputs, giving them the property of memory.
+  </blockquote>
+  <ul>
+    <li>Memory</li>
+    <li>Feedback</li>
+    <li>State Dependent (Output depends on current and past input)</li>
+    <li>Time Dependent (Output changes over time based on input sequence)</li>
+  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Sequential Circuits</th>
+        <th>Combinational Circuits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Depend on input history</td>
+        <td>Depend only on current inputs</td>
+      </tr>
+      <tr>
+        <td>Contain memory elements</td>
+        <td>No memory elements</td>
+      </tr>
+      <tr>
+        <td>Include feedback paths</td>
+        <td>No feedback paths</td>
+      </tr>
+      <tr>
+        <td>
+          Requires clock signal
+        </td>
+        <td>
+          Does't require clock signal
+        </td>
+      </tr>
+      <tr>
+        <td>Output depends on current state and inputs</td>
+        <td>Output is a function of current inputs only</td>
+      </tr>
+      <tr>
+        <td>Examples: flip-flops, registers, counters</td>
+        <td>Examples: adders, multiplexers, decoders</td>
+      </tr>
+ 
+    </tbody>
+  </table>
+  <h2></h2>
+</div>

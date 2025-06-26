@@ -1,0 +1,367 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+    },
+  };
+</script><script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add click event listeners to all answer buttons
+    const answerButtons = document.querySelectorAll(".ans-button");
+    
+    answerButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        // Find the parent div first
+        const parentDiv = this.closest(".res-ques");
+        
+        // Then find the answer content within this parent
+        const answerContent = parentDiv.querySelector(".ans-content");
+        
+        // Toggle its visibility with smooth animation
+        if (!answerContent.classList.contains("visible")) {
+          // Update button text
+          this.textContent = this.textContent.includes("Show") || 
+                            this.textContent.includes("Answer") ? 
+                            "Hide Answer" : "Hide";
+          
+          // Show content with animation
+          answerContent.classList.add("visible");
+          
+          // If there's MathJax content, we need to rerender it
+          if (typeof MathJax !== 'undefined' && answerContent.querySelector(".MathJax")) {
+            setTimeout(() => {
+              MathJax.typeset([answerContent]);
+            }, 100);
+          }
+        } else {
+          // Update button text
+          this.textContent = this.textContent.includes("Hide") ? 
+                            (this.textContent.includes("Hide Answer") ? 
+                            "Show Answer" : "Answer") : 
+                            "Answer";
+          
+          // Hide content with animation
+          answerContent.classList.remove("visible");
+        }
+      });
+    });
+  });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../../css.css" />
+<div id="container">
+  <h1>Graph</h1>
+
+  <p>
+    A graph is a mathematical structure used to represent pairwise structure
+    between objects.
+  </p>
+
+  <blockquote>
+    A graph \( G = (V,E) \) consist of \( V \) a non empty set of vertices (or
+    nodes) and \( E \) a set of edges. Each edge has either one or two vertices
+    associated with it called its endpoints. An edge is said to be connected to
+    its endpoints.
+  </blockquote>
+  <a href="GraphTerm.html#one">Important Terms</a>
+  <p>
+    <strong>Infinite graph</strong> &rarr; A graph with infinite set of vertices
+    and edges.
+
+
+<br />
+    <strong>Finite graph</strong> &rarr; A graph with finite set of vertices and
+    edges.
+  </p>
+
+  <h2>Isomorphic Graph</h2>
+  <blockquote>
+    Two graphs are isomorphic if they have the same "structure" even though they might appear different at first glance. Think of isomorphic graphs as twins wearing different clothes - they look different superficially but are fundamentally identical.
+  </blockquote>
+  <h4>Requirements: </h4>
+  <ul>
+    <li>
+      They must have the same number of vertices</li><li>
+
+They must have the same number of edges</li><li>
+
+Their degree sequences must match and there must be mapping of degree </li><li>
+
+If vertices form a cycle of certain length in one graph, the corresponding vertices must form a cycle of the same length in the other graph
+    </li>
+    <li>There Adjacency Matrix must match</li>
+  </ul>
+
+  <p class="note">Note: These conditions are necessary but not sufficient - meeting all these conditions doesn't guarantee the graphs are isomorphic, but failing any condition proves they are definitely not isomorphic.</p>
+  <h2>Simple Graph</h2>
+  <blockquote>
+    A simple graph is a graph that does not contain any loops or multiple edges.
+    In other words, each pair of vertices is connected by at most one edge, and
+    no edge connects a vertex to itself.
+  </blockquote>
+  <h2>Multigraph</h2>
+  <blockquote>
+    A multigraph is a type of graph in which two vertices can be connected by
+    more than one edge. These multiple edges between the same pair of vertices
+    are called parallel edges or multiple edges
+  </blockquote>
+  <p>
+    Think of it like having multiple different roads (edges) directly connecting
+    the same two towns (vertices).
+  </p>
+  <h2>Connected Graph</h2>
+  <blockquote>
+    A connected graph is a graph in which there is a path between every pair of
+    vertices. In other words, you can reach any vertex from any other vertex by
+    traversing the edges of the graph.
+  </blockquote>
+  <h2>Pseudograph</h2>
+  <blockquote>
+    A pseudograph is a graph that allows both loops and multiple edges. In a
+    pseudograph, you can have edges that connect a vertex to itself (loops) as
+    well as multiple edges between the same pair of vertices.
+  </blockquote>
+  <h2>Directed Graph</h2>
+  <blockquote>
+    A directed graph, or digraph, is a structure that not only shows connections
+    between objects (vertices) but also captures the direction of those
+    connections. In a directed graph, the structure is formally defined as a
+    pair \( (V,E) \), where \( V \) is a nonempty set of vertices and \( E \) is
+    a set of directed edges (or arcs).
+  </blockquote>
+  <a href="GraphTerm.html#two">Important Terms</a>
+  <p>
+    <strong>Simple Directed Graph</strong> &rarr; A directed graph having no
+    loops and multiple directed edges.
+  </p>
+
+  <div class="res-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Edge</th>
+          <th>Multiple Edges Allowed ?</th>
+          <th>Loops Allowed ?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Simple Graph</td>
+          <td>Undirected</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Multigraph</td>
+          <td>Undirected</td>
+          <td>Yes</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Pseudograph</td>
+          <td>Undirected</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Simple directed graph</td>
+          <td>Directed</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Directed multigraph</td>
+          <td>Directed</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>Mixed Graph</td>
+          <td>Directed and Undirected</td>
+          <td>Yes</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<h2>Regular Graph</h2>
+<blockquote>A regular graph is a graph in which every vertex has the same number of edges connected to it. In other words, all vertices have the same degree (the degree is the number of edges incident to a vertex).</blockquote>
+<h2>K-Regular Graph</h2>
+<blockquote>A k-regular graph is a specific type of regular graph where every vertex has exactly k edges connected to it. In other words, the degree of each vertex in the graph is k.</blockquote>
+<p>A complete graph with $n$ vertices is 
+  $(n-1)$-regular, since each vertex connects to all other $n-1$ vertices.<br>  If $k$ is odd, the number of vertices $n$ must be even. (By <a href="Theorems.html">Handshaking Theorem</a>) <br>Number of edges $\rightarrow \frac {n \ \times \ k}{2}$ 
+<br>For example, a 3-regular graph is a graph where every vertex has exactly 3 edges connected to it.</p>
+
+<div class="res-ques">
+
+<h4>find $k$, if k-regular graph contains 8 vertices and 12 edges.</h4>
+<button class="ans-button">Show Answer</button>
+<div class="ans-content">
+  <p>$$\begin{align*} \\
+    \sum deg(v) &= 2 \ e \\
+8 \times \ k    &= 12 \times 2 \\
+k &= 3 \end{align*}$$ Ans 12.</p>
+</div>
+</div>
+
+    <br>
+    <br>
+    <hr />
+
+
+    <h1>Special Graphs</h1>
+    <h2>Complete Graph</h2>
+    <blockquote>
+      A complete graph on $n$ vertices, denoted by $K_n$, is a simple graph
+      that contains exactly one edge between each pair of distinct vertices.
+    </blockquote>
+    <p><b>Number of edges</b> $\rightarrow \frac {n(n-1)}{2}$ <br> <b id="kdeg">Degree</b> $\rightarrow (n-1)$ </p>
+    <p>
+      The graphs $K_n$, for n =1,2,3,4,5,6, are as shown. A simple graph for
+      which there is at least one pair of distinct vertex not connected by an
+      edge is called non-complete.
+    </p>
+    <div class="res-container">
+      <img src="3.png" alt="" />
+    </div>
+    <h2>Cycles</h2>
+    <blockquote>
+      A Cycle $C_n$, $n>=3$, is a circuit in which no vertex is repeated
+      accept initial and terminal vertices of the sequence.
+    </blockquote>
+    <p>The graphs $C_n$, for n =3,4,5,6, are as shown.</p>
+    <div class="res-container">
+      <img src="4.png" alt="" />
+    </div>
+    <h2>Wheels</h2>
+  <blockquote>
+      A wheel graph $W_n$, $n>=4$, is a graph obtained by joining a single
+      vertex to all vertices of a cycle.
+  </blockquote><p>The graphs $W_n$, for n =3,4,5,6, are as shown.</p>
+  <div class="res-container">
+    <img src="5.png" alt="" />
+  </div>
+<h1>Bipartite Graphs</h1>
+<p>
+  A bipartite graph is a graph whose vertices can be divided into two disjoint sets such that every edge connects a vertex in one set to a vertex in the other set. In other words, there are no edges between vertices within the same set.
+</p>
+<blockquote> A simple graph $G$ is called bipartite if its vertex set $V$ can be partitioned into two disjoint
+  sets $V_1$ and $V_2$  such that every edge in the graph connects a vertex in $V_1$  and a vertex in $V_2$ 
+  (so that no edge in $G$ connects either two vertices in V1 or two vertices in V2). When this
+  condition holds, we call the pair $(V_1 ,V_2)$ a bipartition of the vertex set $V$ of $G$.</blockquote>
+  <div class="res-ques">
+      <h4> Is $C_6$ a Bipartite ?</h4>
+      <button class="ans-button">Show Answer</button>
+      <div class="ans-content">
+          <center><pre><code>
+A(X)-----B(Y)
+/           \
+F(Y)         C(X)
+\           /
+ E(X)-----D(Y)
+         
+          </code></pre>
+      </center><img src="6.png">
+
+        <p></p>Yes, as 
+          
+          <li>Set $X=\{A,C,E\}$</li>
+          <li>Set $Y=\{B,D,F\}$</li>
+      also
+      <li>$A(X)$ connects to $B(Y)$ and $F(Y)$</li>
+
+      <li>   $C(X)$ connects to $B(Y)$ and $D(Y)$</li>
+          
+  <li> $E(X)$ connects to $D(Y)$ and $F(Y)$</li>
+ <h5> The key insight is that in any cycle:</h5>
+
+<li>Bipartite coloring works by alternating between the two sets as you move from vertex to vertex</li>
+
+<li>For even cycles (like C_6), you make an even number of "color switches" when going around the cycle</li>
+
+<li>For odd cycles (like C_3), you make an odd number of "color switches" when going around the cycle</li>
+        </p>
+  </div>
+  </div>
+  <p></p>
+  <div class="res-ques" >
+      <h4> Are the graphs $G$ and $H$ displayed in the figure Bipartite ?</h4>
+      <img src="7.png" alt="" />
+      <button class="ans-button" style="margin: 10px auto">Show Answer</button>
+<div class="ans-content">
+ <p>$G$ is a Bipartite But $H$ is not.</p>
+</div></div>
+
+<h2>Complete Bipartite</h2>
+<blockquote>A complete bipartite graph $K_m,n$ is a graph has its vertex set partitioned into two subsets $m$ and $n$ vertices, respectively with edge between two vertices. </blockquote>
+<p>The graph for $k_{2,3},\ k_{3,3},\ k_{3,5},\ k_{2,6}$ is as shown.</p>
+<div class="res-container">
+  <img src="8.png" alt="" />
+</div>
+<h3>Different Between Complete Bipartite and Bipartite</h3>
+<table>
+<tr>
+  <th>
+    Bipartite Graph
+  </th>
+  <th>Complete Bipartite Graph</th>
+</tr>
+<tr>
+  <td>
+  Vertex set split into two disjoint subsets with no intra-set edges.
+</td>
+<td>
+  All the possible inter-set edges exit between the two subset.
+</td>
+</tr>
+<tr>
+<td>
+  Can have variable number of edges.
+</td>
+<td>
+  Fixed as $m \times n$ (where $m$ and $n$ are subset sizes).
+</td>
+</tr>
+<tr>
+<td>
+  Varies; degrees depend on connections to the opposite subset.
+</td>
+<td>
+  Uniform; all vertices in subset $X$ have degree $n$, and subset $Y$ have degree $m$.
+</td>
+</tr>
+</table>
+
+<h2>Planar Graph</h2>
+<blockquote>A graph is called planar if it can be drawn in the plane without any edges crossing.</blockquote>
+<p>A graph may be planar even if it is usually drawn with crossings, because it may be possible to draw it in a different way without crossing.</p>
+<div class="res-container res-ques">
+  <h4>Is $K_4$ planner ?</h4>
+  <img src="3.png"><br>
+  <button class="ans-button">Show Answer</button>
+  <div class="ans-content">
+<p>Yes </p>
+  </div>
+</div>
+<div class="res-ques res-container">
+  <h4>Is cube planar ?</h4><img src="14.png"><br>
+  <button class="ans-button">Show Answer</button>
+  <div class="ans-content">
+    Yes
+  </div>
+</div>
+<div class="res-ques res-container"><h4>Is $k_{3,3}$ planar ?</h4><img src="8.png"> <br> 
+  <button class="ans-button">Show Answer</button><div class="ans-content">
+  No
+</div>

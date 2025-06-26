@@ -1,0 +1,214 @@
+<script src="../../comm.js"></script>
+<link rel="stylesheet" href="../../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+  <h1>Connectivity and Path</h1>
+  <h2>Important Terms</h2>
+  <p>
+    <b>Walk:</b> Alternative sequence of vertices and edges <br />
+    <b>Open Walk:</b> A Walk is said to be open if its initial ans terminating
+    vertices are different.<br />
+    <b>Closed Wal:</b> A Walk is said to closed if its initial and terminating
+    vertices are same.<br />
+    <b>Path:</b> An open walk in which no vertex can appear more than once is
+    called path.<br>
+    <b>Trial:</b> An open walk is said to be trial if the edges are not repeated but the vertices may be repeating.<br>
+    <b>Simple Path:</b> A path which does not contain the same edges more than once (no repeating edges).<br>
+    <b>Circuit:</b> It is a walk in which no edges repeat.<br></p>  
+    <h3>Compliment of a Graph:</h3> The complement of a graph G, often denoted as G̅ (G with a line over it) or G' is a graph that:<ul> 
+        <li>Has exactly the same set of vertices as the original graph G</li><li>
+
+            Contains precisely those edges that are NOT present in the original graph G
+
+        </li>
+    </ul>
+    In simpler terms, if two vertices are connected by an edge in the original graph, they will NOT be connected in the complement graph. Conversely, if two vertices are NOT connected in the original graph, they WILL be connected in the complement graph
+  </p>
+  <h2>Dijkstra’s algorithm</h2>
+  <blockquote>Dijkstra’s algorithm is a procedure for finding the shortest paths from a single source vertex to all other vertices in a weighted graph with non‐negative edge weights</blockquote>
+
+  <h3>Steps of Dijkstra's Algorithm</h3>
+
+  <ol>
+    <li>Create a table with all vertices of the graph as columns (a, b, c, d, e, f, g, z).</li>
+    <li>Initialize the first row with the starting vertex (a) as <span class="bold">0</span> and all other vertices as ∞.</li>
+    <li>Choose the vertex with the minimum distance value (initially <span class="bold">a</span> with distance 0).</li>
+    <li>For the selected vertex, update the distances to all its adjacent vertices if the new calculated distance is less than the current recorded distance.</li>
+    <li>Mark each updated distance with the path in parentheses.</li>
+    <li>Mark the selected vertex as visited (shown with a <span class="bold">bold</span> value in the table).</li>
+    <li>Select the unvisited vertex with the minimum distance as the next vertex to process.</li>
+    <li>Repeat steps 4-6 until all vertices have been visited.</li>
+  </ol>
+  <div class="res-ques res-container"><h4>Find the shortest path from $a$  to $f$ </h4><center>
+  <div class="res-container"><svg xmlns="http://www.w3.org/2000/svg" width="500" height="300" >
+
+    <!-- Edges -->
+    <line x1="50"  y1="150" x2="150" y2="50"  stroke="black" stroke-width="2"/>
+    <line x1="50"  y1="150" x2="150" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="150" y1="50"  x2="150" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="150" y1="50"  x2="350" y2="50"  stroke="black" stroke-width="2"/>
+    <line x1="150" y1="250" x2="350" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="150" y1="50"  x2="350" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="350" y1="50"  x2="450" y2="150" stroke="black" stroke-width="2"/>
+    <line x1="350" y1="50"  x2="350" y2="250" stroke="black" stroke-width="2"/>
+    <line x1="350" y1="250" x2="450" y2="150" stroke="black" stroke-width="2"/>
+  
+    <!-- Edge Weights -->
+    <text x="100" y="80"   font-size="19" fill="black">1</text>   <!-- a–b -->
+    <text x="100" y="195"  font-size="19" fill="black">4</text>   <!-- a–c -->
+    <text x="155" y="150"  font-size="19" fill="black">2</text>   <!-- b–c -->
+    <text x="250" y="40"   font-size="19" fill="black">7</text>   <!-- b–d -->
+    <text x="250" y="240"  font-size="19" fill="black">1</text>   <!-- c–e -->
+    <text x="250" y="140"  font-size="19" fill="black">5</text>   <!-- b–e -->
+    <text x="360" y="150"  font-size="19" fill="black">3</text>   <!-- d–e -->
+    <text x="400" y="90"  font-size="19" fill="black">2</text>   <!-- d–f -->
+    <text x="400" y="180"  font-size="19" fill="black">6</text>   <!-- e–f -->
+  
+    <!-- Vertices -->
+    <circle cx="50"  cy="150" r="16" fill="lightgray" stroke="black"/>
+    <circle cx="150" cy="50"  r="16" fill="lightgray" stroke="black"/>
+    <circle cx="150" cy="250" r="16" fill="lightgray" stroke="black"/>
+    <circle cx="350" cy="50"  r="16" fill="lightgray" stroke="black"/>
+    <circle cx="350" cy="250" r="16" fill="lightgray" stroke="black"/>
+    <circle cx="450" cy="150" r="16" fill="lightgray" stroke="black"/>
+  
+    <!-- Vertex Labels -->
+    <text x="44"  y="155" font-size="16" fill="black">a</text>
+    <text x="144" y="55"  font-size="16" fill="black">b</text>
+    <text x="144" y="255" font-size="16" fill="black">c</text>
+    <text x="344" y="55"  font-size="16" fill="black">d</text>
+    <text x="344" y="255" font-size="16" fill="black">e</text>
+    <text x="444" y="155" font-size="16" fill="black">f</text>
+  
+  </svg></div>
+  <button class="ans-button">Show Answer </button>
+  <div class="ans-content">
+    <div class="res-container">
+    <p >\[
+        \begin{array}{c|cccccc}
+        \text{Visited} & a & b & c & d & e & f \\
+        \hline
+        \text{Initial} & 0 & \infty & \infty & \infty & \infty & \infty \\
+        \hline
+        a & \mathbf{0} & 1(a) & 4(a) & \infty & \infty & \infty \\
+        b(1) & - & \mathbf{1}(a) & 3(a,b) & 8(a,b) & 6(a,b) & \infty \\
+        c(3) & - & - & - & 8(a,b) & 4(a,b) & \infty \\
+        e(4) & - & - & - & 7(a,b,c,e) & - & 10(a,b,c,e) \\
+        d(7) & - & - & - & - & - & 9(a,b,c,e,d) \\
+        f(9) & - & - & - & - & - & \mathbf{9}(a,b,c,e,d) \\
+        \end{array}
+        \]
+    </p> </div>
+  </div>
+  </center></div>
+  
+  <div class="res-ques "><h4>Fing the shortest path between a to z </h4><center><div class="res-container"><svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+
+    <style>
+      .edge {
+        stroke: black;
+        stroke-width: 2;
+      }
+      .vertex {
+        fill: lightgray;
+        stroke: black;
+        stroke-width: 1;
+      }
+      .vertex-label {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 19px;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        fill: black;
+      }
+      .edge-label {
+        font-family: sans-serif;
+        font-size: 16px;
+        text-anchor: middle;
+        fill: black;
+        /* Optional: add a small white background for readability */
+        /* paint-order: stroke; */
+        /* stroke: white; */
+        /* stroke-width: 3px; */
+      }
+    </style>
+  
+    <!-- Edges -->
+    <line x1="150" y1="50" x2="400" y2="50" class="edge"/> <!-- a-b -->
+    <line x1="150" y1="50" x2="250" y2="100" class="edge"/> <!-- a-d -->
+    <line x1="150" y1="50" x2="50" y2="200" class="edge"/> <!-- a-e -->
+    <line x1="400" y1="50" x2="550" y2="150" class="edge"/> <!-- b-c -->
+    <line x1="550" y1="150" x2="250" y2="100" class="edge"/> <!-- c-d -->
+    <line x1="550" y1="150" x2="450" y2="280" class="edge"/> <!-- c-z -->
+    <line x1="250" y1="100" x2="280" y2="250" class="edge"/> <!-- d-f -->
+    <line x1="250" y1="100" x2="450" y2="280" class="edge"/> <!-- d-z -->
+    <line x1="50" y1="200" x2="280" y2="250" class="edge"/> <!-- e-f -->
+    <line x1="50" y1="200" x2="150" y2="350" class="edge"/> <!-- e-g -->
+    <line x1="280" y1="250" x2="150" y2="350" class="edge"/> <!-- f-g -->
+    <line x1="150" y1="350" x2="450" y2="280" class="edge"/> <!-- g-z -->
+  
+    <!-- Edge Labels -->
+    <text x="275" y="40" class="edge-label">4</text> <!-- a-b -->
+    <text x="210" y="65" class="edge-label">5</text> <!-- a-d -->
+    <text x="80" y="115" class="edge-label">2</text> <!-- a-e -->
+    <text x="485" y="90" class="edge-label">5</text> <!-- b-c -->
+    <text x="400" y="115" class="edge-label">2</text> <!-- c-d -->
+    <text x="515" y="215" class="edge-label">1</text> <!-- c-z -->
+    <text x="255" y="185" class="edge-label">4</text> <!-- d-f -->
+    <text x="350" y="180" class="edge-label">10</text> <!-- d-z -->
+    <text x="175" y="215" class="edge-label">3</text> <!-- e-f -->
+    <text x="70" y="285" class="edge-label">6</text> <!-- e-g -->
+    <text x="225" y="290" class="edge-label">5</text> <!-- f-g -->
+    <text x="300" y="330" class="edge-label">2</text> <!-- g-z -->
+  
+    <!-- Vertices (drawn last to be on top) -->
+    <circle cx="150" cy="50" r="15" class="vertex"/>
+    <text x="150" y="50" class="vertex-label">a</text>
+  
+    <circle cx="400" cy="50" r="15" class="vertex"/>
+    <text x="400" y="50" class="vertex-label">b</text>
+  
+    <circle cx="550" cy="150" r="15" class="vertex"/>
+    <text x="550" y="150" class="vertex-label">c</text>
+  
+    <circle cx="250" cy="100" r="15" class="vertex"/>
+    <text x="250" y="100" class="vertex-label">d</text>
+  
+    <circle cx="50" cy="200" r="15" class="vertex"/>
+    <text x="50" y="200" class="vertex-label">e</text>
+  
+    <circle cx="280" cy="250" r="15" class="vertex"/>
+    <text x="280" y="250" class="vertex-label">f</text>
+  
+    <circle cx="150" cy="350" r="15" class="vertex"/>
+    <text x="150" y="350" class="vertex-label">g</text>
+  
+    <circle cx="450" cy="280" r="15" class="vertex"/>
+    <text x="450" y="280" class="vertex-label">z</text>
+  
+  </svg></div>
+  <button class="ans-button">Show Answer</button>
+  <div class="ans-content">
+<div class="res-container">
+    \begin{array}{c|cccccccc}
+    \text{Visited} & a & b & c & d & e & f & g & z \\
+    \hline
+    \text{Initial} & 0 & \infty & \infty & \infty & \infty & \infty & \infty & \infty \\
+    \hline
+    a & \mathbf{0} & 4(a) & \infty & 5(a) & 2(a) & \infty & \infty & \infty \\
+    e(2) & - & 4(a) & \infty & 5(a) & \mathbf{2}(a) & 5(a,e) & 8(a,e) & \infty \\
+    b(4) & - & \mathbf{4}(a) & 9(a,b) & 5(a) & - & 5(a,e) & 8(a,e) & \infty \\
+    d(5) & - & - & 7(a,d) & \mathbf{5}(a) & - & 9(a,d) & 8(a,e) & 15(a,d) \\
+    f(5) & - & - & 7(a,d) & - & - & \mathbf{5}(a,e) & 8(a,e) & 15(a,d) \\
+    c(7) & - & - & \mathbf{7}(a,d) & - & - & - & 8(a,e) & 8(a,d,c) \\
+    g(8) & - & - & - & - & - & - & \mathbf{8}(a,e) & 10(a,e,g) \\
+    z(8) & - & - & - & - & - & - & - & \mathbf{8}(a,d,c) \\
+    \end{array}
+  </div>
+    
+  </div>
+  </center></div>
+ 
+      
+  </div>
+</div>

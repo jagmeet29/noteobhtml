@@ -1,0 +1,103 @@
+<script src="../comm.js"></script>
+<link rel="stylesheet" href="../css.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<div id="container">
+<div class="res-container">
+
+<h1>Boolean Algebra: De Morgan's Law Proof</h1>
+
+<h2>1. De Morgan's First Theorem: $\overline{A + B} = \overline{A} \cdot \overline{B}$</h2>
+
+<p>To prove this, we verify that $\overline{A} \cdot \overline{B}$ satisfies the <strong>complementarity law</strong> with $A + B$:</p>
+
+<h3>Step 1: Show $(A + B) \cdot (\overline{A} \cdot \overline{B}) = 0$</h3>
+
+<div class="equation-block">
+$$
+\begin{aligned}
+(A + B)(\overline{A} \cdot \overline{B}) &= A \cdot \overline{A} \cdot \overline{B} + B \cdot \overline{A} \cdot \overline{B} \\
+&= 0 \cdot \overline{B} + 0 \cdot \overline{A} \\
+&= 0 + 0 = 0
+\end{aligned}
+$$
+</div>
+
+<h3>Step 2: Show $(A + B) + (\overline{A} \cdot \overline{B}) = 1$</h3>
+
+<div class="equation-block">
+$$
+\begin{aligned}
+(A + B) + (\overline{A} \cdot \overline{B}) 
+&= (A + B + \overline{A}) \cdot (A + B + \overline{B}) \\
+&= (1 + B) \cdot (1 + A) \\
+&= 1 \cdot 1 = 1
+\end{aligned}
+$$
+</div>
+
+<p>Since both conditions hold, $\overline{A + B} = \overline{A} \cdot \overline{B}$ is proven.</p>
+
+
+
+<h2>2. De Morgan's Second Theorem: $\overline{A \cdot B} = \overline{A} + \overline{B}$</h2>
+
+<p>Similarly, verify $\overline{A} + \overline{B}$ complements $A \cdot B$:</p>
+
+<h3>Step 1: Show $(A \cdot B) \cdot (\overline{A} + \overline{B}) = 0$</h3>
+
+<div class="equation-block">
+$$
+\begin{aligned}
+(A \cdot B)(\overline{A} + \overline{B}) 
+&= A \cdot B \cdot \overline{A} + A \cdot B \cdot \overline{B} \\
+&= 0 \cdot B + 0 \cdot A \\
+&= 0 + 0 = 0
+\end{aligned}
+$$
+</div>
+
+<h3>Step 2: Show $(A \cdot B) + (\overline{A} + \overline{B}) = 1$</h3>
+
+<div class="equation-block">
+$$
+\begin{aligned}
+(A \cdot B) + (\overline{A} + \overline{B}) 
+&= (A + \overline{A} + \overline{B}) \cdot (B + \overline{A} + \overline{B}) \\
+&= (1 + \overline{B}) \cdot (1 + \overline{A}) \\
+&= 1 \cdot 1 = 1
+\end{aligned}
+$$
+</div>
+
+<p>Thus, $\overline{A \cdot B} = \overline{A} + \overline{B}$ is proven.</p>
+
+
+
+<h2>Key Boolean Laws Used</h2>
+<ul>
+  <li><strong>Distributive Law</strong>: $X(Y + Z) = XY + XZ$</li>
+  <li><strong>Complementarity Law</strong>: $X + \overline{X} = 1$, $X \cdot \overline{X} = 0$</li>
+  <li><strong>Identity Law</strong>: $X \cdot 1 = X$, $X + 0 = X$</li>
+</ul>
+
+
+
+<h2>Practical Implications</h2>
+<p>De Morgan's theorems enable logic gate transformations:</p>
+<ul>
+  <li><strong>NAND ⇔ Bubbled OR</strong>: $\overline{A \cdot B} = \overline{A} + \overline{B}$</li>
+  <li><strong>NOR ⇔ Bubbled AND</strong>: $\overline{A + B} = \overline{A} \cdot \overline{B}$</li>
+</ul>
+
+<p>These equivalences simplify circuit design by reducing component count and optimizing performance.</p>
+
+
+
+<h2>Example Verification via Truth Table</h2>
+<p>For $A = 0, B = 1$:</p>
+<ul>
+  <li>$\overline{A + B} = \overline{1} = 0$</li>
+  <li>$\overline{A} \cdot \overline{B} = 1 \cdot 0 = 0$</li>
+</ul>
+
+<p>All cases align, confirming the theorems.</p>
